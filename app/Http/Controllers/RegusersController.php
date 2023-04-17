@@ -15,7 +15,7 @@ class RegusersController extends Controller
         }
 
         public function index(Request $request){
-                $rows = User::with(['getJob'])->paginate($this->pagination);
+                $rows = User::where('type','A')->with(['getJob'])->paginate($this->pagination);
                 $groups = Job::all();
                 return view("settings.regusers", compact("rows","groups"));
         }
