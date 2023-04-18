@@ -60,4 +60,10 @@ return [
     'generalSettingsPages' => 'صفحات عامة',
     'admins' => 'المسؤولين',
     'dashboard' => 'لوحة التحكم',
+
+    // Products Page
+    'price' => 'السعر',
+    'category' => 'الفئة',
+    'description' => 'الوصف',
+    'image' => 'الصورة',
 ];

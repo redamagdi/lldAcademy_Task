@@ -58,5 +58,11 @@ return [
     'generalSettingsPages' => 'General Pages',
     'admins' => 'Admins',
     'dashboard' => 'Dashboard',
+     
+    // Products Page
+    'price' => 'Price',
+    'category' => 'Category',
+    'description' => 'Description',
+    'image' => 'Image',
 
 ];

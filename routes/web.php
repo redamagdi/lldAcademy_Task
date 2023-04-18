@@ -7,6 +7,7 @@ use App\Http\Controllers\PreviligesController;
 use App\Http\Controllers\JobsController;
 use App\Http\Controllers\RegusersController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\ProductsController;
 
 Route::group(['prefix' => LaravelLocalization::setLocale() , 'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ] ], function(){
     Route::get('/', function () {
@@ -21,11 +22,20 @@ Route::group(['prefix' => LaravelLocalization::setLocale() , 'middleware' => [ '
             Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
         });
 
+        // categories
         Route::group(['prefix' => 'categories', 'as' => 'categories.','middleware' => 'previliges:categories'], function(){
-            Route::get('', [CategoriesController::class, 'index'])->name('categories');
+            Route::get('', [CategoriesController::class, 'index']);
             Route::post('save', [CategoriesController::class, 'save'])->name('save');
             Route::post('update', [CategoriesController::class, 'update'])->name('update');
             Route::post('delete', [CategoriesController::class, 'delete'])->name('delete');
+        });
+
+        // products
+        Route::group(['prefix' => 'products', 'as' => 'products.','middleware' => 'previliges:products'], function(){
+            Route::get('', [ProductsController::class, 'index']);
+            Route::post('save', [ProductsController::class, 'save'])->name('save');
+            Route::post('update', [ProductsController::class, 'update'])->name('update');
+            Route::post('delete', [ProductsController::class, 'delete'])->name('delete');
         });
 
         // General Settings
