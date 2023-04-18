@@ -30,6 +30,11 @@ return [
     'Groupspreviliges' => 'المجموعات و الصلاحيات',
     'RegisteredUsers' => 'المستخدمين',
 
+    'categories'        => 'التصنيفات',
+    'products'          => 'المنتجات',
+    'users'             => 'المستخدمين',
+    'orders'            => 'الطلبات',
+
     
     // Top Bar
     'changeLanguage' => 'تغيير اللغة',

@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PreviligesController;
 use App\Http\Controllers\JobsController;
 use App\Http\Controllers\RegusersController;
+use App\Http\Controllers\CategoriesController;
 
 Route::group(['prefix' => LaravelLocalization::setLocale() , 'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ] ], function(){
     Route::get('/', function () {
@@ -18,6 +19,13 @@ Route::group(['prefix' => LaravelLocalization::setLocale() , 'middleware' => [ '
         Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
         Route::group(['middleware' => 'previliges:dashboard'], function(){
             Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        });
+
+        Route::group(['prefix' => 'categories', 'as' => 'categories.','middleware' => 'previliges:categories'], function(){
+            Route::get('', [CategoriesController::class, 'index'])->name('categories');
+            Route::post('save', [CategoriesController::class, 'save'])->name('save');
+            Route::post('update', [CategoriesController::class, 'update'])->name('update');
+            Route::post('delete', [CategoriesController::class, 'delete'])->name('delete');
         });
 
         // General Settings

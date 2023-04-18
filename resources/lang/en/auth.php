@@ -24,10 +24,14 @@ return [
     'deleteMessageSuccess' =>  'Deleted successfully.',
     'noDataToShow' => 'There is no data to show in this page.',
     // Left sidbar
-    'Dashboard' => 'Dashboard',
-    'UsersManagement' => 'Users Management',
-    'Groupspreviliges' => 'Groups & previliges',
-    'RegisteredUsers' => 'Users',
+    'Dashboard'         => 'Dashboard',
+    'UsersManagement'   => 'Admins Management',
+    'Groupspreviliges'  => 'Groups & previliges',
+    'RegisteredUsers'   => 'Users',
+    'categories'        => 'Categories',
+    'products'          => 'Products',
+    'users'             => 'Users',
+    'orders'            => 'Orders',
 
     // Top Bar
     'changeLanguage' => 'Change Language',

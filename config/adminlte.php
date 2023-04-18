@@ -253,7 +253,36 @@ return [
                     'view'  => 'regusers',
                 ]
             ],
+        ],
+        [
+            'text'        => 'categories',
+            'url'         => 'categories',
+            'icon'        => 'fas fa-fw fa-sitemap',
+            'view'        => 'categories',
+            'label_color' => 'success',
+        ],
+        [
+            'text'        => 'products',
+            'url'         => 'products',
+            'icon'        => 'fas fa-fw fa-network-wired',
+            'view'        => 'products',
+            'label_color' => 'success',
+        ],
+        [
+            'text'        => 'users',
+            'url'         => 'users',
+            'icon'        => 'fas fa-fw fa-users',
+            'view'        => 'users',
+            'label_color' => 'success',
+        ],
+        [
+            'text'        => 'orders',
+            'url'         => 'orders',
+            'icon'        => 'fa fa-retweet',
+            'view'        => 'orders',
+            'label_color' => 'success',
         ]
+
     ],
 
     /*

@@ -87,9 +87,9 @@
                                   @if($roles->a=="0") <span class="badge badge-info">{{ __('auth.noPermission') }}</span> @endif
                                   @if($roles->a=="1")
                                       @if(empty($r['previliges']))
-                                      <button class="btn btn-xs btn-warning editButton" data-route="{{$r['route']}}" data-page="{{$r['name']}}" data-jobid="{{$job->id}}" data-jobtitle="{{$job->name}}" data-view="" data-add="" data-edit="" data-delete=""><i class="fa fa-edit"></i> {{ __('auth.edit') }}</button>
+                                      <button class="btn btn-xs btn-warning editButton" data-route="{{$r['route']}}" data-page="{{$r['name']}}" data-categories="{{ $job->getCategoriesIDS() }}" data-jobid="{{$job->id}}" data-jobtitle="{{$job->name}}" data-view="" data-add="" data-edit="" data-delete=""><i class="fa fa-edit"></i> {{ __('auth.edit') }}</button>
                                       @else
-                                      <button class="btn btn-xs btn-warning editButton" data-route="{{$r['route']}}" data-page="{{$r['name']}}" data-jobid="{{$job->id}}" data-jobtitle="{{$job->name}}" data-view="{{$r['previliges']['v']}}" data-add="{{$r['previliges']['a']}}" data-edit="{{$r['previliges']['e']}}" data-delete="{{$r['previliges']['d']}}"><i class="fa fa-edit"></i> {{__('auth.edit')}}</button>
+                                      <button class="btn btn-xs btn-warning editButton" data-route="{{$r['route']}}" data-page="{{$r['name']}}" data-categories="{{ $job->getCategoriesIDS() }}" data-jobid="{{$job->id}}" data-jobtitle="{{$job->name}}" data-view="{{$r['previliges']['v']}}" data-add="{{$r['previliges']['a']}}" data-edit="{{$r['previliges']['e']}}" data-delete="{{$r['previliges']['d']}}"><i class="fa fa-edit"></i> {{__('auth.edit')}}</button>
                                       @endif
                                   @endif
                                 </td>
@@ -239,7 +239,18 @@
                         <option value="0">No</option>
                     </select>
                 </div>
-                <div id="extras">                
+                <div id="extras">  
+                    @if($categories)
+                        <div class="form-group" id="categoriesBox" style="display: none;">
+                            <label>{{ __('auth.categories') }}:</label>
+                            <select class="form-control" multiple name="categories[]" id="categories">
+                                <option value=""> - {{ __('auth.select') }} {{ __('auth.categories') }} -</option>
+                                @foreach($categories as $ca)
+                                    <option value="{{$ca->id}}">{{$ca->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    @endif
                     <div class="form-group">
                         <label>{{ __('auth.add') }}:</label>
                         <select class="form-control" name="add" id="add" required>
@@ -248,6 +259,7 @@
                             <option value="0">No</option>
                         </select>
                     </div>
+
                     <div class="form-group">
                         <label>{{ __('auth.edit') }} :</label>
                         <select class="form-control" name="edit" id="edit" required>
@@ -256,6 +268,7 @@
                             <option value="0">No</option>
                         </select>
                     </div>
+
                     <div class="form-group">
                         <label>{{ __('auth.delete') }} :</label>
                         <select class="form-control" name="delete" id="delete" required>
@@ -264,6 +277,7 @@
                             <option value="0">No</option>
                         </select>
                     </div>
+
                 </div>
             </div>
             <div class="modal-footer justify-content-between">
@@ -404,6 +418,8 @@
         $(".editButton").on("click", function(){
             let form = "editForm";
             let route = $(this).data("route");
+            let pageName = $(this).data("page");
+            let categories = $(this).data("categories");
             if(route=="system"){
                 form = "system";
                 $("#system #all").attr("checked", $(this).data("view")==1);
@@ -416,8 +432,16 @@
                 $("#editForm #delete").val($(this).data("delete"));
                 if($(this).data("view")==0){
                     $("#editForm #extras").hide();
+                    $("#editForm #categories").val("");
                 }else{
                     $("#editForm #extras").show();
+                    if(pageName=="التصنيفات"||pageName=="Categories"){
+                        $("#editForm #categoriesBox").css('display','block');
+                        $("#editForm #categories").val(categories);
+                    }else{
+                        $("#editForm #categoriesBox").css('display','none');
+                        $("#editForm #categories").val("");
+                    }
                 }
             }
             $("#"+form+" #route").val(route);

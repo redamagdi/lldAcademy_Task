@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Job;
+use App\Models\Category;
+use App\Models\AdminCategories;
+
 use App\Models\Previliges;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,14 +14,16 @@ class PreviligesController extends Controller
 {
 
     public function index(Request $request){
-        $jobs = Job::all();
-        return view("settings.privileges", compact("jobs"));
+        $jobs           = Job::all();
+        $categories     = Category::all();
+        return view("settings.privileges", compact("jobs","categories"));
     }
 
     public function job($jobid){
         $job = Job::where("id", $jobid)->first();
         $pages = $this->buildMenu($jobid);
-        return view("settings.privileges", compact("job", "pages"));
+        $categories     = Category::all();
+        return view("settings.privileges", compact("job", "pages","categories"));
     }
 
     public function getPrevilige($jobid, $page){
@@ -33,6 +38,10 @@ class PreviligesController extends Controller
         $pages[$i] = (object)["section"=>__('auth.generalSettingsPages'), "pages"=>[]];
         $sectionPages = [
             ["name" => __('auth.Dashboard'), "route" => "dashboard", "previliges" => $this->getPrevilige($jobid, "dashboard")],
+            ["name" => __('auth.categories'), "route" => "categories", "previliges" => $this->getPrevilige($jobid, "categories")],
+            ["name" => __('auth.products'), "route" => "products", "previliges" => $this->getPrevilige($jobid, "products")],
+            ["name" => __('auth.users'), "route" => "users", "previliges" => $this->getPrevilige($jobid, "users")],
+            ["name" => __('auth.orders'), "route" => "orders", "previliges" => $this->getPrevilige($jobid, "orders")],
         ];
         $pages[$i++]->pages = $sectionPages;
         
@@ -64,6 +73,19 @@ class PreviligesController extends Controller
             $previliges->e = $request->edit;
             $previliges->d = $request->delete;
             if($previliges->update()){
+                if($previliges->page=="categories"){
+                    $jobD = Job::where('id',$request->jobid)->with(['getCategories'])->first();
+                    $jobD->getCategories()->delete();
+                    if($previliges->v==1){
+                        foreach($request->categories as $c){
+                            $newCatePre = new AdminCategories();
+                            $newCatePre->group_id = $request->jobid;
+                            $newCatePre->category_id = $c;
+                            $newCatePre->save();
+                        }
+                    }
+                }
+
                 return back()->with('success', 'Privilege updated successfully.');
             }else{
                 return back()->with('error', 'Privilege not updated.');
@@ -77,6 +99,19 @@ class PreviligesController extends Controller
             $previliges->e = $request->edit;
             $previliges->d = $request->delete;
             if($previliges->save()){
+                if($previliges->page=="categories"){
+                    $jobD = Job::where('id',$request->jobid)->with(['getCategories'])->first();
+                    $jobD->getCategories()->delete();
+                    if($previliges->v==1){
+                        foreach($request->categories as $c){
+                            $newCatePre = new AdminCategories();
+                            $newCatePre->group_id = $request->jobid;
+                            $newCatePre->category_id = $c;
+                            $newCatePre->save();
+                        }
+                    }
+                }
+
                 return back()->with('success', 'Privilege saved successfully.');
             }else{
                 return back()->with('error', 'Privilege not saved.');
