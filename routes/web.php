@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PreviligesController;
 use App\Http\Controllers\JobsController;
 use App\Http\Controllers\RegusersController;
+use App\Http\Controllers\UsersController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\ProductsController;
 
@@ -38,6 +39,17 @@ Route::group(['prefix' => LaravelLocalization::setLocale() , 'middleware' => [ '
             Route::post('delete', [ProductsController::class, 'delete'])->name('delete');
         });
 
+        // front users
+
+        // reg Page
+        Route::group(['prefix' => 'users', 'as' => 'users.', 'middleware' => 'previliges:users'], function(){
+            Route::get('', [UsersController::class, 'index']);
+            Route::post('/save', [UsersController::class, 'save'])->name('save');
+            Route::post('/update', [UsersController::class, 'update'])->name('update');
+            Route::post('/delete', [UsersController::class, 'delete'])->name('delete');
+            Route::post('/update/resetPass', [UsersController::class, 'resetPass'])->name('resetPass');
+        });
+
         // General Settings
         Route::group(['prefix' => 'settings', 'as' => 'settings.', 'namespace' => 'App\Http\Controllers', 'middleware' => 'auth'], function () {
             
@@ -55,7 +67,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale() , 'middleware' => [ '
                 Route::post('update', [PreviligesController::class, 'update'])->name('update');
             });
 
-            // reg Page
+            // Admin Page
             Route::group(['prefix' => 'regusers', 'as' => 'regusers.', 'middleware' => 'previliges:regusers'], function(){
                 Route::get('', [RegusersController::class, 'index']);
                 Route::post('/save', [RegusersController::class, 'save'])->name('save');
