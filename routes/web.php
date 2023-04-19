@@ -9,6 +9,7 @@ use App\Http\Controllers\RegusersController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\OrdersController;
 
 Route::group(['prefix' => LaravelLocalization::setLocale() , 'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ] ], function(){
     Route::get('/', function () {
@@ -40,14 +41,17 @@ Route::group(['prefix' => LaravelLocalization::setLocale() , 'middleware' => [ '
         });
 
         // front users
-
-        // reg Page
         Route::group(['prefix' => 'users', 'as' => 'users.', 'middleware' => 'previliges:users'], function(){
             Route::get('', [UsersController::class, 'index']);
             Route::post('/save', [UsersController::class, 'save'])->name('save');
             Route::post('/update', [UsersController::class, 'update'])->name('update');
             Route::post('/delete', [UsersController::class, 'delete'])->name('delete');
             Route::post('/update/resetPass', [UsersController::class, 'resetPass'])->name('resetPass');
+        });
+
+        // orders
+        Route::group(['prefix' => 'orders', 'as' => 'orders.','middleware' => 'previliges:orders'], function(){
+            Route::get('', [OrdersController::class, 'index']);
         });
 
         // General Settings

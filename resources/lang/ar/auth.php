@@ -66,4 +66,11 @@ return [
     'category' => 'الفئة',
     'description' => 'الوصف',
     'image' => 'الصورة',
+
+    // orders page
+    'amount'  => 'الكمية',
+    'total'   => 'الاجمالي',
+    'product' => 'المنتج',
+    'user'    => 'المستخدم',
 ];
+

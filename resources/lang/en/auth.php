@@ -65,4 +65,10 @@ return [
     'description' => 'Description',
     'image' => 'Image',
 
+    // orders page
+    'amount'  => 'Amount',
+    'total'   => 'Total',
+    'product' => 'Product',
+    'user'    => 'User',
+
 ];
