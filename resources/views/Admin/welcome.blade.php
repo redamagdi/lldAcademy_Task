@@ -55,7 +55,11 @@
                         <div class="flex items-center">
                         @if (Route::has('login'))
                             @auth
-                                <a href="{{ route('dashboard') }}" class="ml-1 button shadow">Dashboard</a>
+                                @if(Auth::user()->type=="A")
+                                    <a href="{{ route('dashboard') }}" class="ml-1 button shadow">Dashboard</a>
+                                @else 
+                                    <a href="{{ route('userProducts') }}" class="ml-1 button shadow">Products</a>
+                                @endif
                             @else
                                 <a href="{{ route('login') }}" class="ml-1 button shadow">Log in</a>
                                 @if (Route::has('register'))

@@ -26,7 +26,11 @@ class LoginController extends Controller
                     if(session()->has('url.intended')){
                         return redirect()->intended();
                     }else{
-                        return redirect()->route('dashboard')->with('success', 'Loggin in successfuly.');
+                        if($user->type=="A"){
+                            return redirect()->route('dashboard')->with('success', 'Loggin in successfuly.');
+                        }else{
+                            return redirect()->route('userProducts')->with('success', 'Loggin in successfuly.');
+                        }
                     }
                 }else{
                     return redirect()->route("login")->with('error', __('auth.userNotActive'));
@@ -43,5 +47,4 @@ class LoginController extends Controller
         Auth::logout();
         return redirect()->route("login");
 	}
-    
 }

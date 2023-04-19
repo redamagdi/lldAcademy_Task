@@ -19,9 +19,7 @@ class PreviligesMiddleware
             view()->share('roles', $previliges);
             return $next($request);
         }
-
-        return redirect()->route('notauthorized');
-
+        dd('notauthorized');
     }
 
 }

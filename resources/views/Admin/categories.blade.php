@@ -39,12 +39,12 @@
                   @endif
 
                   @if(Session::has("error"))
-                <div class="alert alert-danger col-lg-12 col-md-12 col-sm-12 alert-dismissible">
-                    <i class="close fa fa-times" style="cursor:pointer;" data-dismiss="alert" aria-hidden="true"></i>
-                    <i class="fa fa-times"></i> &nbsp; {{Session::get('error')}}
-                    @php Session::forget('error'); @endphp
-                </div>
-            @endif
+                      <div class="alert alert-danger col-lg-12 col-md-12 col-sm-12 alert-dismissible">
+                          <i class="close fa fa-times" style="cursor:pointer;" data-dismiss="alert" aria-hidden="true"></i>
+                          <i class="fa fa-times"></i> &nbsp; {{Session::get('error')}}
+                          @php Session::forget('error'); @endphp
+                      </div>
+                  @endif
                   
                   <div class="table-responsive text-nowrap">
                     <table id="example1" class="table table-bordered text-center">
