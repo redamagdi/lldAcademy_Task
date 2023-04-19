@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Job;
+use App\Http\Requests\JobRequest;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,12 +16,7 @@ class JobsController extends Controller
         $this->pagination = config('adminlte.pagination');
     }
 
-    public function save(Request $request){
-
-        $validated = $request->validate([
-            'name' => 'required',
-        ]);
-
+    public function save(JobRequest $request){
         $job = new Job();
         $job->name = $request->name;
         if($job->save()){
@@ -30,13 +27,7 @@ class JobsController extends Controller
 
     }
     
-    public function update(Request $request){
-
-        $validated = $request->validate([
-            'rowid' => 'required',
-            'name' => 'required',
-        ]);
-
+    public function update(JobRequest $request){
         $job = Job::find($request->rowid);
         $job->name = $request->name;
         if($job->update()){

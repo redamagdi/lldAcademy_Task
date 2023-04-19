@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Http\Requests\UserRequest;
+
 class UsersController extends Controller
 {
         protected $pagination;
@@ -17,16 +19,7 @@ class UsersController extends Controller
                 return view("Admin.users", compact("rows"));
         }
 
-        public function save(Request $request){
-
-                $validated = $request->validate([
-                    'name' => 'required',
-                    'password' => 'required',
-                    'status' => 'required',
-                    'email' => 'required',
-                    'phone' => 'required',
-                ]);
-                
+        public function save(UserRequest $request){
                 $row = new User();
                 $row->name = $request->name;
                 $row->password = md5($request->password);
@@ -42,15 +35,7 @@ class UsersController extends Controller
         
         }
             
-        public function update(Request $request){
-
-            $validated = $request->validate([
-                'rowid' => 'required',
-                'name' => 'required',
-                'status' => 'required',
-                'email' => 'required',
-                'phone' => 'required',
-            ]);
+        public function update(UserRequest $request){
 
                 $row = User::find($request->rowid);
                 $row->name = $request->name;

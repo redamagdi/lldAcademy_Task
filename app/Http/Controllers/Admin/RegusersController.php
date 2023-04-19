@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Job;
+use App\Http\Requests\AdminRequest;
 
 class RegusersController extends Controller
 {
@@ -20,17 +21,7 @@ class RegusersController extends Controller
                 return view("Admin.settings.regusers", compact("rows","groups"));
         }
 
-        public function save(Request $request){
-
-                $validated = $request->validate([
-                    'name' => 'required',
-                    'password' => 'required',
-                    'job' => 'required',
-                    'status' => 'required',
-                    'email' => 'required',
-                    'phone' => 'required',
-                ]);
-                
+        public function save(AdminRequest $request){
                 $row = new User();
                 $row->name = $request->name;
                 $row->password = md5($request->password);
@@ -48,16 +39,6 @@ class RegusersController extends Controller
         }
             
         public function update(Request $request){
-
-            $validated = $request->validate([
-                'rowid' => 'required',
-                'name' => 'required',
-                'job' => 'required',
-                'status' => 'required',
-                'email' => 'required',
-                'phone' => 'required',
-            ]);
-
                 $row = User::find($request->rowid);
                 $row->name = $request->name;
                 $row->job = $request->job;

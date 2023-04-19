@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Category;
 use App\Models\AdminCategories;
-
+use App\Http\Requests\CategoryRequest;
 class CategoriesController extends Controller
 {
         protected $pagination;
@@ -20,12 +20,7 @@ class CategoriesController extends Controller
                 return view("Admin.categories", compact("rows"));
         }
 
-        public function save(Request $request){
-
-                $validated = $request->validate([
-                    'name' => 'required',
-                ]);
-                
+        public function save(CategoryRequest $request){
                 $row = new Category();
                 $row->name = $request->name;
                 if($row->save()){
@@ -41,13 +36,7 @@ class CategoriesController extends Controller
         
         }
             
-        public function update(Request $request){
-
-            $validated = $request->validate([
-                'rowid' => 'required',
-                'name' => 'required',
-            ]);
-
+        public function update(CategoryRequest $request){
                 $row = Category::find($request->rowid);
                 $row->name = $request->name;
                 if($row->update()){

@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Category;
 use App\Models\Product;
+use App\Http\Requests\ProductRequest;
 
 class ProductsController extends Controller
 {
@@ -21,15 +22,8 @@ class ProductsController extends Controller
                 return view("Admin.products", compact("rows","categories"));
         }
 
-        public function save(Request $request){
+        public function save(ProductRequest $request){
 
-                $validated = $request->validate([
-                    'name' => 'required',
-                    'price' => 'required',
-                    'description' => 'required',
-                    'category_id' => 'required',
-                ]);
-                
                 $row = new Product();
                 $row->name = $request->name;
                 $row->price = $request->price;
@@ -43,16 +37,7 @@ class ProductsController extends Controller
         
         }
             
-        public function update(Request $request){
-
-            $validated = $request->validate([
-                'rowid' => 'required',
-                'name' => 'required',
-                'price' => 'required',
-                'description' => 'required',
-                'category_id' => 'required',
-            ]);
-
+        public function update(ProductRequest $request){
                 $row = Product::find($request->rowid);
                 $row->name = $request->name;
                 $row->price = $request->price;
