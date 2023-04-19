@@ -11,50 +11,30 @@ use App\Http\Controllers\Admin\CategoriesController;
 use App\Http\Controllers\Admin\ProductsController;
 use App\Http\Controllers\Admin\OrdersController;
 
+// admin Routes
 Route::group(['prefix' => LaravelLocalization::setLocale().'/admin' , 'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ] ], function(){
+    // wolcom route
     Route::get('/', function () {
         return view('Admin.welcome');
     });
+
+    // notauthorized route
     Route::get('/notauthorized', function () { return view('notauthorized'); })->name('notauthorized');
+    
+    // login routes
     Route::get('/login', function () { return view('Admin.login'); });
     Route::post('/login', [LoginController::class, 'login'])->name('login');
+    
     Route::group(['prefix' => '', 'namespace' => 'App\Http\Controllers', 'middleware' => 'auth'], function () {
+        // Logout Route
         Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+        
+        // Dashboard Route
         Route::group(['middleware' => 'previliges:dashboard'], function(){
             Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
         });
 
-        // categories
-        Route::group(['prefix' => 'categories', 'as' => 'categories.','middleware' => 'previliges:categories'], function(){
-            Route::get('', [CategoriesController::class, 'index']);
-            Route::post('save', [CategoriesController::class, 'save'])->name('save');
-            Route::post('update', [CategoriesController::class, 'update'])->name('update');
-            Route::post('delete', [CategoriesController::class, 'delete'])->name('delete');
-        });
-
-        // products
-        Route::group(['prefix' => 'products', 'as' => 'products.','middleware' => 'previliges:products'], function(){
-            Route::get('', [ProductsController::class, 'index']);
-            Route::post('save', [ProductsController::class, 'save'])->name('save');
-            Route::post('update', [ProductsController::class, 'update'])->name('update');
-            Route::post('delete', [ProductsController::class, 'delete'])->name('delete');
-        });
-
-        // front users
-        Route::group(['prefix' => 'users', 'as' => 'users.', 'middleware' => 'previliges:users'], function(){
-            Route::get('', [UsersController::class, 'index']);
-            Route::post('/save', [UsersController::class, 'save'])->name('save');
-            Route::post('/update', [UsersController::class, 'update'])->name('update');
-            Route::post('/delete', [UsersController::class, 'delete'])->name('delete');
-            Route::post('/update/resetPass', [UsersController::class, 'resetPass'])->name('resetPass');
-        });
-
-        // orders
-        Route::group(['prefix' => 'orders', 'as' => 'orders.','middleware' => 'previliges:orders'], function(){
-            Route::get('', [OrdersController::class, 'index']);
-        });
-
-        // General Settings
+        // Admin Management Settings Routes
         Route::group(['prefix' => 'settings', 'as' => 'settings.', 'namespace' => 'App\Http\Controllers', 'middleware' => 'auth'], function () {
             
             Route::group(['prefix' => 'job', 'as' => 'job.', 'middleware' => 'previliges:previlige'], function(){
@@ -81,8 +61,40 @@ Route::group(['prefix' => LaravelLocalization::setLocale().'/admin' , 'middlewar
                 Route::post('/update/resetPass', [RegusersController::class, 'resetPass'])->name('resetPass');
             });
         });
-        
+
+        // categories Routes
+        Route::group(['prefix' => 'categories', 'as' => 'categories.','middleware' => 'previliges:categories'], function(){
+            Route::get('', [CategoriesController::class, 'index']);
+            Route::post('save', [CategoriesController::class, 'save'])->name('save');
+            Route::post('update', [CategoriesController::class, 'update'])->name('update');
+            Route::post('delete', [CategoriesController::class, 'delete'])->name('delete');
+        });
+
+        // products Routes
+        Route::group(['prefix' => 'products', 'as' => 'products.','middleware' => 'previliges:products'], function(){
+            Route::get('', [ProductsController::class, 'index']);
+            Route::post('save', [ProductsController::class, 'save'])->name('save');
+            Route::post('update', [ProductsController::class, 'update'])->name('update');
+            Route::post('delete', [ProductsController::class, 'delete'])->name('delete');
+        });
+
+        // front users Routes
+        Route::group(['prefix' => 'users', 'as' => 'users.', 'middleware' => 'previliges:users'], function(){
+            Route::get('', [UsersController::class, 'index']);
+            Route::post('/save', [UsersController::class, 'save'])->name('save');
+            Route::post('/update', [UsersController::class, 'update'])->name('update');
+            Route::post('/delete', [UsersController::class, 'delete'])->name('delete');
+            Route::post('/update/resetPass', [UsersController::class, 'resetPass'])->name('resetPass');
+        });
+
+        // orders Route
+        Route::group(['prefix' => 'orders', 'as' => 'orders.','middleware' => 'previliges:orders'], function(){
+            Route::get('', [OrdersController::class, 'index']);
+        });
 
     });
 });
+
+// Front End Routes
+
 
