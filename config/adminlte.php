@@ -54,7 +54,7 @@ return [
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'Big Panel',
+    'logo_img_alt' => 'dll Academy',
 
     /*
     |--------------------------------------------------------------------------
@@ -192,9 +192,9 @@ return [
 
     'use_route_url' => false,
     'dashboard_url' => 'dashboard',
-    'logout_url' => 'logout',
-    'login_url' => 'login',
-    'register_url' => 'register',
+    'logout_url' => 'admin/logout',
+    'login_url' => 'admin/login',
+    'register_url' => 'admin/register',
     'password_reset_url' => false,
     'password_email_url' => false,
     'profile_url' => true,
@@ -230,7 +230,7 @@ return [
     'menu' => [
         [
             'text'        => 'Dashboard',
-            'url'         => 'dashboard',
+            'url'         => 'admin/dashboard',
             'icon'        => 'fas fa-fw fa-tachometer-alt',
             'view'        => 'dashboard',
             'label_color' => 'success',
@@ -243,41 +243,41 @@ return [
                 [
                     'text' => 'Groupspreviliges',
                     'icon' => 'fas fa-fw fa-user-cog',
-                    'url'  => 'settings/previliges',
+                    'url'  => 'admin/settings/previliges',
                     'view'  => 'previlige',
                 ],
                 [
                     'text' => 'admins',
                     'icon' => 'fas fa-fw fa-users',
-                    'url'  => 'settings/regusers',
+                    'url'  => 'admin/settings/regusers',
                     'view'  => 'regusers',
                 ]
             ],
         ],
         [
             'text'        => 'categories',
-            'url'         => 'categories',
+            'url'         => 'admin/categories',
             'icon'        => 'fas fa-fw fa-sitemap',
             'view'        => 'categories',
             'label_color' => 'success',
         ],
         [
             'text'        => 'products',
-            'url'         => 'products',
+            'url'         => 'admin/products',
             'icon'        => 'fas fa-fw fa-network-wired',
             'view'        => 'products',
             'label_color' => 'success',
         ],
         [
             'text'        => 'users',
-            'url'         => 'users',
+            'url'         => 'admin/users',
             'icon'        => 'fas fa-fw fa-users',
             'view'        => 'users',
             'label_color' => 'success',
         ],
         [
             'text'        => 'orders',
-            'url'         => 'orders',
+            'url'         => 'admin/orders',
             'icon'        => 'fa fa-retweet',
             'view'        => 'orders',
             'label_color' => 'success',
