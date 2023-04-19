@@ -1,15 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\PreviligesController;
-use App\Http\Controllers\JobsController;
-use App\Http\Controllers\RegusersController;
-use App\Http\Controllers\UsersController;
-use App\Http\Controllers\CategoriesController;
-use App\Http\Controllers\ProductsController;
-use App\Http\Controllers\OrdersController;
+use App\Http\Controllers\Admin\LoginController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\PreviligesController;
+use App\Http\Controllers\Admin\JobsController;
+use App\Http\Controllers\Admin\RegusersController;
+use App\Http\Controllers\Admin\UsersController;
+use App\Http\Controllers\Admin\CategoriesController;
+use App\Http\Controllers\Admin\ProductsController;
+use App\Http\Controllers\Admin\OrdersController;
 
 Route::group(['prefix' => LaravelLocalization::setLocale().'/admin' , 'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ] ], function(){
     Route::get('/', function () {
