@@ -13,10 +13,10 @@ use App\Http\Controllers\OrdersController;
 
 Route::group(['prefix' => LaravelLocalization::setLocale() , 'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ] ], function(){
     Route::get('/', function () {
-        return view('welcome');
+        return view('Admin.welcome');
     });
     Route::get('/notauthorized', function () { return view('notauthorized'); })->name('notauthorized');
-    Route::get('/login', function () { return view('login'); });
+    Route::get('/login', function () { return view('Admin.login'); });
     Route::post('/login', [LoginController::class, 'login'])->name('login');
     Route::group(['prefix' => '', 'namespace' => 'App\Http\Controllers', 'middleware' => 'auth'], function () {
         Route::get('/logout', [LoginController::class, 'logout'])->name('logout');

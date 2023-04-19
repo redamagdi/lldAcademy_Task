@@ -14,7 +14,7 @@ class UsersController extends Controller
 
         public function index(Request $request){
                 $rows = User::where('type','U')->paginate($this->pagination);
-                return view("users", compact("rows"));
+                return view("Admin.users", compact("rows"));
         }
 
         public function save(Request $request){

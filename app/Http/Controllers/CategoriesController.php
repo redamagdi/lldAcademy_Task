@@ -17,7 +17,7 @@ class CategoriesController extends Controller
         public function index(Request $request){
                 $catids = AdminCategories::select('category_id')->where('group_id',\Auth::user()->job)->pluck('category_id');
                 $rows   = Category::whereIn('id',$catids)->paginate($this->pagination);
-                return view("categories", compact("rows"));
+                return view("Admin.categories", compact("rows"));
         }
 
         public function save(Request $request){

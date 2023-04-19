@@ -11,7 +11,7 @@ class DashboardController extends Controller
 	  $packa = 0;
 	  $bouqu = 0;
 	  $lines = 0;
-      return view('dashboard',compact('users','packa','bouqu','lines'));
+      return view('Admin.dashboard',compact('users','packa','bouqu','lines'));
 	}
 
 }

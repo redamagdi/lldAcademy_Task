@@ -16,14 +16,14 @@ class PreviligesController extends Controller
     public function index(Request $request){
         $jobs           = Job::all();
         $categories     = Category::all();
-        return view("settings.privileges", compact("jobs","categories"));
+        return view("Admin.settings.privileges", compact("jobs","categories"));
     }
 
     public function job($jobid){
         $job = Job::where("id", $jobid)->first();
         $pages = $this->buildMenu($jobid);
         $categories     = Category::all();
-        return view("settings.privileges", compact("job", "pages","categories"));
+        return view("Admin.settings.privileges", compact("job", "pages","categories"));
     }
 
     public function getPrevilige($jobid, $page){

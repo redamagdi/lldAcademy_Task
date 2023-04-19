@@ -19,7 +19,7 @@ class OrdersController extends Controller
                 $catids     = \Auth::user()->getJob->getCategoriesIDS();
                 $pruductIDS = Product::select('id')->whereIn('category_id',json_decode($catids,true))->pluck('id');
                 $rows       = UserProducts::whereIn('product_id',$pruductIDS)->with(['getProduct','getUser'])->paginate($this->pagination);
-                return view("orders", compact("rows"));
+                return view("Admin.orders", compact("rows"));
         }
 
 }

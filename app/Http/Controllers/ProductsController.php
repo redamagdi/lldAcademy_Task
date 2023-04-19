@@ -18,7 +18,7 @@ class ProductsController extends Controller
                 $catids     = \Auth::user()->getJob->getCategoriesIDS();
                 $categories = Category::whereIn('id',json_decode($catids,true))->get(); 
                 $rows       = Product::whereIn('category_id',json_decode($catids,true))->paginate($this->pagination);
-                return view("products", compact("rows","categories"));
+                return view("Admin.products", compact("rows","categories"));
         }
 
         public function save(Request $request){
